@@ -1,0 +1,4 @@
+[
+  { "command": "swap_strings", "caption" : "SwapStrings: Swap to arbitrary strings" },
+  { "command": "swap_strings", "args" : { "stringA" : "'", "stringB" : "\"" }, "caption" : "SwapStrings: Swap quotes" }
+]
