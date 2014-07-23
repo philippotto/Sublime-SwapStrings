@@ -19,7 +19,7 @@ class TestSwapStrings(TestCase):
 
 	def assertSimpleSwap(self, testStr, expectedStr, stringA, stringB):
 
-		self.view.run_command("append", {"characters": testStr})
+		self.view.run_command("insert", {"characters": testStr})
 		self.view.run_command("swap_strings", dict(stringA = stringA, stringB = stringB))
 
 		contentRegion = sublime.Region(0, self.view.size())
