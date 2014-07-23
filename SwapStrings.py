@@ -25,13 +25,16 @@ class SwapStringsCommand(sublime_plugin.TextCommand):
 					region = view.line(region)
 
 				regionStr = view.substr(region)
-				swapToken = self.generateSwapToken(regionStr, stringA, stringB)
 
+				if stringB == "":
+					regionStr = regionStr.replace(stringA, "")
+				else:
+					swapToken = self.generateSwapToken(regionStr, stringA, stringB)
 
-				regionStr = regionStr \
-					.replace(stringA, swapToken) \
-					.replace(stringB, stringA) \
-					.replace(swapToken, stringB)
+					regionStr = regionStr \
+						.replace(stringA, swapToken) \
+						.replace(stringB, stringA) \
+						.replace(swapToken, stringB)
 
 				view.replace(edit, region, regionStr)
 
@@ -66,6 +69,10 @@ class SwapStringsCommand(sublime_plugin.TextCommand):
 
 
 	def onConfirm(self, swapString):
+
+		if "<>" not in swapString:
+			sublime.status_message("No <> was found for swapping strings.")
+			return
 
 		(a, b) = swapString.split("<>")
 		self.view.run_command("swap_strings", dict(stringA=a, stringB=b))
