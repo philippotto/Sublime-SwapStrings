@@ -1,0 +1,8 @@
+[
+  { "keys": ["super+shift+alt+s"], "command": "swap_strings" },
+  { "keys": ["super+shift+alt+c"], "command": "swap_strings", "args" : {
+  	"stringA" : "'",
+  	"stringB" : "\""
+  	}
+ 	}
+]
