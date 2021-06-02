@@ -1,14 +1,15 @@
 language: python
 python:
-    # this has nothing to do with ST 2/ ST 3, just leave it as 2.7
+    # this has nothing to do with ST 2/ ST 3/ ST 4, just leave it as 2.7
     - "2.7"
 
 env:
     global:
-        - PACKAGE="SwapStrings"
+        - PACKAGE="SwapBullets"
     matrix:
         - SUBLIME_TEXT_VERSION="2"
         - SUBLIME_TEXT_VERSION="3"
+        - SUBLIME_TEXT_VERSION="4"
 
 before_install:
     - curl -OL https://raw.githubusercontent.com/randy3k/UnitTesting/master/sbin/travis.sh
