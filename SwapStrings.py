@@ -1,12 +1,12 @@
 import sublime, sublime_plugin
 
-class SwapStringsCommand(sublime_plugin.TextCommand):
+class SwapBulletsCommand(sublime_plugin.TextCommand):
 
-	def run(self, edit, stringA=None, stringB=None):
+	def run(self, edit, bulletA=None, bulletB=None):
 
-		if not stringA and not stringB:
+		if not bulletA and not bulletB:
 			inputView = sublime.active_window().show_input_panel(
-				"Specify the strings which shall be swapped. <> functions as a separator.",
+				"Specify the bullets which shall be swapped. <> functions as a separator.",
 				"\"<>'",
 				self.onConfirm,
 				None,
@@ -17,7 +17,7 @@ class SwapStringsCommand(sublime_plugin.TextCommand):
 		else:
 			view = self.view
 			selection = view.sel()
-			stringA, stringB = self.ensureOrder(stringA, stringB)
+			bulletA, bulletB = self.ensureOrder(bulletA, bulletB)
 
 			for region in selection:
 				if region.a == region.b:
@@ -26,54 +26,54 @@ class SwapStringsCommand(sublime_plugin.TextCommand):
 
 				regionStr = view.substr(region)
 
-				if stringB == "":
-					regionStr = regionStr.replace(stringA, "")
+				if bulletB == "":
+					regionStr = regionStr.replace(bulletA, "")
 				else:
-					swapToken = self.generateSwapToken(regionStr, stringA, stringB)
+					swapToken = self.generateSwapToken(regionStr, bulletA, bulletB)
 
 					regionStr = regionStr \
-						.replace(stringA, swapToken) \
-						.replace(stringB, stringA) \
-						.replace(swapToken, stringB)
+						.replace(bulletA, swapToken) \
+						.replace(bulletB, bulletA) \
+						.replace(swapToken, bulletB)
 
 				view.replace(edit, region, regionStr)
 
 
-	def ensureOrder(self, stringA, stringB):
+	def ensureOrder(self, bulletA, bulletB):
 
-		# ensures that len(stringA) >= len(stringB)
-		# this is important for the edge case in which stringA is a substring of stringB
+		# ensures that len(bulletA) >= len(bulletB)
+		# this is important for the edge case in which bulletA is a substring of bulletB
 
-		if len(stringB) > len(stringA):
-			stringA, stringB = stringB, stringA
+		if len(bulletB) > len(bulletA):
+			bulletA, bulletB = bulletB, bulletA
 
-		return stringA, stringB
+		return bulletA, bulletB
 
 
-	def generateSwapToken(self, regionStr, stringA, stringB):
+	def generateSwapToken(self, regionStr, bulletA, bulletB):
 
 		# requirements derived by the three replacements:
-		# 1: uncritical since stringA >= stringB.
-		# 2: stringB must not be in swapToken.
-		# 3: swapToken must not be in stringA and not in regionStr.
-		# 	 mind that stringA is not necessarily a substring of regionStr.
+		# 1: uncritical since bulletA >= bulletB.
+		# 2: bulletB must not be in swapToken.
+		# 3: swapToken must not be in bulletA and not in regionStr.
+		# 	 mind that bulletA is not necessarily a substring of regionStr.
 
-		#	choose swapToken so that stringB cannot be in swapToken
-		swapToken = stringB[:-1]
+		#	choose swapToken so that bulletB cannot be in swapToken
+		swapToken = bulletB[:-1]
 
-		while swapToken in stringA + regionStr:
-			# extend swapToken with a character so that it isn't stringB
- 			swapToken += chr(ord(stringB[-1]) + 1 % 255)
+		while swapToken in bulletA + regionStr:
+			# extend swapToken with a character so that it isn't bulletB
+ 			swapToken += chr(ord(bulletB[-1]) + 1 % 255)
 
 		return swapToken
 
 
-	def onConfirm(self, swapString):
+	def onConfirm(self, swapBullet):
 
-		if "<>" not in swapString:
-			sublime.status_message("No <> was found for swapping strings.")
+		if "<>" not in swapBullet:
+			sublime.status_message("No <> was found for swapping bullet.")
 			return
 
-		(a, b) = swapString.split("<>")
-		self.view.run_command("swap_strings", dict(stringA=a, stringB=b))
+		(a, b) = swapBullet.split("<>")
+		self.view.run_command("swap_bullets", dict(bulletA=a, bulletB=b))
 
