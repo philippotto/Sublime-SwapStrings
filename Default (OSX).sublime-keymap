@@ -1,6 +1,6 @@
 [
-  { "keys": ["super+shift+alt+s"], "command": "swap_strings" },
-  { "keys": ["super+shift+alt+c"], "command": "swap_strings", "args" : {
+  { "keys": ["super+shift+alt+s"], "command": "swap_bullets" },
+  { "keys": ["super+shift+alt+c"], "command": "swap_bullets", "args" : {
   	"stringA" : "'",
   	"stringB" : "\""
   	}
