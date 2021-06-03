@@ -1,4 +1,4 @@
 [
-  { "command": "swap_strings", "caption" : "SwapStrings: Swap arbitrary strings" },
-  { "command": "swap_strings", "args" : { "stringA" : "'", "stringB" : "\"" }, "caption" : "SwapStrings: Swap quotes" }
+  { "command": "swap_bullets", "caption" : "SwapBullets: Swap Microsoft for standard bullets" },
+  { "command": "swap_bullets", "args" : { "bulletA" : "'", "bulletB" : "\"" }, "caption" : "SwapBullets: Swap Microsoft for standard bullets" }
 ]
